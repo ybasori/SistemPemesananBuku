@@ -31,7 +31,7 @@
 </main>
 
 <!--Modal Add Product-->
-<div id="modal-produk-add" class="modal fade" role="dialog">
+	<div id="modal-produk-add" class="modal fade" role="dialog">
   		<div class="modal-dialog">    
     		<div class="modal-content">
       			<div class="modal-header">
@@ -75,7 +75,6 @@
       			</form>
         			<!--END FORM EDIT-->
     		</div>
-
   		</div>
 	</div>
 <!--END MODAL ADD PRODUCT-->
@@ -111,14 +110,14 @@
         					</div>
         				</div>
 						<div class="form-group">
-							<label for="path_produk" class="control-label col-sm-3" >File Lama</label>
+							<label for="path_produk" class="control-label col-sm-3" >File</label>
 							<div class="col-sm-7">
 								<input type="text" name="path_produk" id="edit_old_path_produk" disabled><br><br>
 								<img width="200px" src="" id="edit_img_old_path_produk">
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="path_produk" class="control-label col-sm-3" >File Baru</label>
+							<label for="path_produk" class="control-label col-sm-3" ></label>
 							<div class="col-sm-7">
 								<input type="file" name="path_produk" id="edit_path_produk">
 								<p class="help-block" id="helper-block-path">Ukuran File Max 3MB</p>
@@ -135,7 +134,7 @@
 
   		</div>
 	</div>
-	<!--END MODAL-->
+<!--END MODAL-->
 		<script type="text/javascript">
 		var t = $('#tabel_data_produk').DataTable({
 			  "autoWidth": false,
@@ -169,6 +168,16 @@
 			}
 		}
 
+		function readURL(input) {
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+		        reader.onload = function (e) {
+		            $('#edit_img_old_path_produk').attr('src', e.target.result);
+		        }
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
+			
 	  	$(document).ready(function(){
 	  		//menampilkan kategori ke modal
 	  		<?php
@@ -208,6 +217,11 @@
 		  		$("#edit_old_path_produk").val(data[indeks][1]); 
 		  		$("#edit_img_old_path_produk").attr('src', data[indeks][1]);
 		  	});
+
+		  	$("#edit_path_produk").change(function(){
+    			readURL(this);
+		  	});
+
 		  	//sweetalert
 		  	$(".delete-form").click(function(){
 
@@ -215,7 +229,7 @@
 		  		//console.log("id="+data[indeks][5]+"&path="+data[indeks][1]);
 			  	swal({
 					title: "Apakah Anda Yakin?",
-					text: "Jika Anda Menghapus Ini, Maka Tidak Dapat Dikembalikan!",
+					text: "Jika Anda Menghapus Data Produk Ini, Maka Data Tersebut Tidak Dapat Dikembalikan!",
 					type: "warning",
 					showCancelButton: true,
 					confirmButtonColor: "#DD6B55",
@@ -237,7 +251,7 @@
 			                            setTimeout(function(){
 			                                swal({
 			                                    title: "Sukses",
-			                                    text: "Foto Telah Dihapus!",
+			                                    text: "Data Produk dan Foto Telah Dihapus!",
 			                                    type: "success"
 			                                }, function(){
 			                                    window.location.reload(true);
@@ -252,10 +266,9 @@
 			                 
 			            });
 	  				} else {
-		    			swal("Batal", "Anda Tidak Jadi Menghapus Datanya :)", "error");
+		    			swal("Batal", "Anda Tidak Jadi Menghapus Data Produk :)", "error");
 	  				}
 				});
-
 		  	});
 		});	
 </script>
