@@ -7,6 +7,7 @@ class Rules
 	}
 	public function uri($data){
 			$uri=(isset($_GET["uri"]))?$_GET["uri"]:"/";
+			
 			if (strpos($uri, '?') == true) {
 				$uri=explode("?",$uri);
 				$uri=$uri[0];
