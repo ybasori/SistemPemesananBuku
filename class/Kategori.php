@@ -19,16 +19,15 @@ class Kategori extends Database
 
 	public function updateKategori($id,$nama_kategori){
 		$stmt = $this->query("UPDATE ".$this->tableName." SET nama_kategori = '$nama_kategori' WHERE id_kategori = '$id'");
-		$stmt->execute();
 		return $stmt;
 	}
 
 	public function deleteKategori($id){
 		$stmt = $this->query("DELETE FROM ".$this->tableName." WHERE id_kategori = '$id'");
-		$stmt->execute();
 		return $stmt;
 	}
 
 }
+
 
 ?>
