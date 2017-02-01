@@ -39,7 +39,7 @@
 // Directing to file - start
 	if($sys->uri(0)=="action"){
 		// including file in directory action - start
-		$filename = 'action/'.$sys->uri(0).".php";
+		$filename = $sys->uri(0)."/".$sys->uri(1).".php";
 		if (file_exists($filename)) {
 		    include $filename;
 		} else {
