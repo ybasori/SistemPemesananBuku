@@ -18,7 +18,7 @@ class Kategori extends Database
 	}
 
 	public function updateKategori($id,$nama_kategori){
-		$stmt = $this->query("UPDATE ".$this->tableName." SET nama = '$nama_kategori' WHERE id_kategori = '$id'");
+		$stmt = $this->query("UPDATE ".$this->tableName." SET nama_kategori = '$nama_kategori' WHERE id_kategori = '$id'");
 		$stmt->execute();
 		return $stmt;
 	}
