@@ -26,7 +26,7 @@
 	var t = $('#tabel_data_member').DataTable({
 		  "autoWidth": false,
 		  "rowCallback": function( row, data, index ) {
-		  	$('td:eq(1)', row).html("<img style=\"width:100px\" src=\"../"+data[1]+"\">");
+		  	$('td:eq(1)', row).html("<img style=\"width:100px\" src=\"<?php echo $sys->base_url(); ?>/"+data[1]+"\">");
 			 $('td:eq(5)', row).html("<button class=\"btn btn-warning update-form\" data-toggle=\"modal\" data-target=\"#mymodalupdate\" data-id=\""+data[0]+"\"><i class=\"glyphicon glyphicon-pencil\"></i> Ubah</button>&nbsp;&nbsp;<button class=\"btn btn-danger delete-form\" data-toggle=\"modal\" data-target=\"#mymodaldelete\" data-id=\""+data[0]+"\" ><i class=\"glyphicon glyphicon-trash\"></i> Hapus</button>");
 		  },			  
 		  "columnDefs": [
