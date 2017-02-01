@@ -4,6 +4,7 @@
 	function __autoload($namaClass){
 		require "class/".$namaClass.".php";
 	}
+	$helper= new Helper;
 	$sys= new Rules("SistemPemesananBuku");
 	// System
 	// how to use:
