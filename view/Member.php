@@ -11,8 +11,11 @@
 				<thead>
 					<tr>
 						<th>No</th>
-						<th>Nama Kategori</th>
-						<th>Action</th>
+						<th>Foto</th>
+						<th>Nama Lengkap</th>
+						<th>Email</th>
+						<th>Level</th>
+						<th style="text-align: center;">Action</th>
 					</tr>
 				</thead>						
 			</table>                   
@@ -29,7 +32,10 @@
 		  "columnDefs": [
 				{ "width": "2%", "targets": 0 },
 				{ "width": "15%", "targets": 1 },
-				{ "width": "20%", "targets": 2 }
+				{ "width": "20%", "targets": 2 },
+				{ "width": "20%", "targets": 3 },
+				{ "width": "20%", "targets": 4 },
+				{ "width": "20%", "targets": 5 }
 				]
 	});	
 
@@ -49,10 +55,13 @@
 
   	$(document).ready(function(){
   		<?php
-  			for($i=0;$i<5;$i++){
-  				$data [$i][0] = "ini";
-  				$data [$i][1] = "ini";
-  				$data [$i][2] = "ini";
+  			for($i=0;$i<=5;$i++){
+  				$data [$i][0] = $i+1;
+  				$data [$i][1] = "foto_member/default_foto_member.png";
+  				$data [$i][2] = "Nama Lengkap";
+  				$data [$i][3] = "Email";
+  				$data [$i][4] = "Level";
+  				$data [$i][5] =$i;
   			}
 			echo "
 			var data = ".json_encode($data).";
@@ -62,4 +71,4 @@
   		?> 
 	  	t.order( [ 0, 'asc' ] ).draw(false);	  		
 	});	
-</script>	
+</script>
