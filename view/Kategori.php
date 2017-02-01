@@ -8,7 +8,7 @@
 					<!-- /panel-header -->					
 					<!-- view data -->
         <div class="panel-body">
-			<table id="tabel_data_kategori" class="table table-bordered table-striped">
+			<table id="tabel_data_kategori" class="table table-bordered table-striped" style="width: 600px;">
 				<thead>
 					<tr>
 						<th>No</th>
@@ -68,7 +68,7 @@
         				<div class="form-group">
         					<label class="control-label col-sm-3" for="nama_kategori">Nama Kategori</label>
         					<div class="col-sm-7">
-        						<input type="text" name="nama_kategori" id="nama_kategori" class="form-control" value="nama_kategori">
+        						<input type="text" name="nama_kategori" id="edit_nama_kategori" class="form-control" value="nama_kategori">
         					</div>
         				</div>
         			</div>	
@@ -85,15 +85,14 @@
 	<!--END MODAL-->
 	<script type="text/javascript">
 	var t = $('#tabel_data_kategori').DataTable({
-		  "autoWidth": false,
 		  "rowCallback": function( row, data, index ) {
 			  $('td:eq(0)', row).html((data[0]+1));
-			  $('td:eq(2)', row).html("<button class=\"btn btn-warning update-form col-sm-4 col-sm-offset-1\" data-toggle=\"modal\" data-target=\"#modal-kategori-edit\" data-id=\""+data[0]+"\"><i class=\"glyphicon glyphicon-pencil\"></i> Ubah</button>&nbsp;&nbsp;<button class=\"btn btn-danger delete-form col-sm-4 col-sm-offset-1\" data-id=\""+data[3]+"\" ><i class=\"glyphicon glyphicon-trash\"></i> Hapus</button>");
+			  $('td:eq(2)', row).html("<button class=\"btn btn-warning update-form col-sm-4 col-sm-offset-1\" data-toggle=\"modal\" data-target=\"#modal-kategori-edit\" data-id=\""+data[0]+"\"><i class=\"glyphicon glyphicon-pencil\"></i> Ubah</button>&nbsp;&nbsp;<button class=\"btn btn-danger delete-form col-sm-4 col-sm-offset-1\" data-id=\""+data[0]+"\" ><i class=\"glyphicon glyphicon-trash\"></i> Hapus</button>");
 		  },			  
 		  "columnDefs": [
 				{ "width": "2%",sClass: "dt-head-center dt-body-center",  "targets": 0 },
-				{ "width": "15%",sClass: "dt-head-center dt-body-center",  "targets": 1 },
-				{ "width": "7%",sClass: "dt-head-center dt-body-left", "targets": 2 }
+				{ "width": "15%",sClass: "dt-head-center dt-body-left",  "targets": 1 },
+				{ "width": "15%",sClass: "dt-head-center dt-body-center", "targets": 2 }
 				]
 	});	
 
@@ -118,8 +117,7 @@
 				while($row=$stmt->fetch()){
 					$data[$i][0]=$i;
 					$data[$i][1]=$row["nama_kategori"];
-					$data[$i][2]=$i;
-					$data[$i][3]=$row["id_kategori"];
+					$data[$i][2]=$row["id_kategori"];
 					$i++;
 				}
 			echo "
@@ -130,55 +128,58 @@
   		?> 
 	  	t.order( [ 0, 'asc' ] ).draw(false);	
 
-
+	  	//mengisi modal update
+	  	$(".update-form").click(function(){
+	  		var indeks = $(this).data('id');
+	  		$("#edit_nama_kategori").val(data[indeks][1]); 
+	  	});	  	
 	  	//sweetalert
-		  	$(".delete-form").click(function(){
-
-		  		var element = $(this);
-		  		var id = element.attr('data-id');
-			  	swal({
-					title: "Apakah Anda Yakin?",
-					text: "Jika Anda Menghapus Ini, Maka Tidak Dapat Dikembalikan!",
-					type: "warning",
-					showCancelButton: true,
-					confirmButtonColor: "#DD6B55",
-					confirmButtonText: "Ya! Hapus",
-					cancelButtonText: "Batal",
-					closeOnConfirm: false,
-					closeOnCancel: false,
-					showLoaderOnConfirm: true
-				},
-				function(isConfirm){
-	  				if (isConfirm) {
-	  					 $.ajax({
-			                url: "<?php echo $sys->base_url() ?>/action/kategori.php",
-			                type: "POST",
-			                data: "id="+id,
-			                dataType: "html",
-			                success: function(data){
-			                        if (data==1){
-			                            setTimeout(function(){
-			                                swal({
-			                                    title: "Sukses",
-			                                    text: "Foto Telah Dihapus!",
-			                                    type: "success"
-			                                }, function(){
-			                                    window.location.reload(true);
-			                                });
-			                            }, 2000);
-			                        }
-			                },
-			                error: function (xhr, ajaxOptions, thrownError) {
-			                    setTimeout(function(){
-			                        swal("Error!", "Silahkan Perikas Koneksi dan Ulangi", "error");
-			                            }, 2000);}
-			                 
-			            });
-	  				} else {
-		    			swal("Batal", "Anda Tidak Jadi Menghapus Datanya :)", "error");
-	  				}
-				});
-
-		  	});  		
+	  	$(".delete-form").click(function(){
+	  		var indeks = $(this).data('id');
+	  		var id = data[indeks][2];
+	  		console.log(id);
+		  	swal({
+				title: "Apakah Anda Yakin?",
+				text: "Jika Anda Menghapus Data Kategori Ini, Maka Data Tersebut Tidak Dapat Dikembalikan!",
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#DD6B55",
+				confirmButtonText: "Ya! Hapus",
+				cancelButtonText: "Batal",
+				closeOnConfirm: false,
+				closeOnCancel: false,
+				showLoaderOnConfirm: true
+			},
+			function(isConfirm){
+  				if (isConfirm) {
+  					 $.ajax({
+		                url: "<?php echo $sys->base_url() ?>/action/kategori.php",
+		                type: "POST",
+		                data: "id="+id,
+		                dataType: "html",
+		                success: function(data){
+		                        if (data==1){
+		                            setTimeout(function(){
+		                                swal({
+		                                    title: "Sukses",
+		                                    text: "Data Kategori Telah Dihapus!",
+		                                    type: "success"
+		                                }, function(){
+		                                    window.location.reload(true);
+		                                });
+		                            }, 2000);
+		                        }
+		                },
+		                error: function (xhr, ajaxOptions, thrownError) {
+		                    setTimeout(function(){
+		                        swal("Error!", "Silahkan Perikas Koneksi dan Ulangi", "error");
+		                            }, 2000);}
+		                 
+		            });
+  				} else {
+	    			swal("Batal", "Anda Tidak Jadi Menghapus Data Kategori :)", "error");
+  				}
+			});
+	  	});  		
 	});	
 </script>	
