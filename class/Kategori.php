@@ -5,12 +5,10 @@
 */
 class Kategori extends Database
 {
-	private $conn;
 	private $tableName = "tb_kategori";
 	
 	public function createKategori($nama_kategori){
-		$stmt = $this->query("INSERT INTO ".$this->tableName." (nama) VALUES('".$nama."')");
-		$stmt->execute();
+		$stmt = $this->query("INSERT INTO ".$this->tableName." (nama_kategori) VALUES('".$nama_kategori."')");
 		return $stmt;
 	}
 
