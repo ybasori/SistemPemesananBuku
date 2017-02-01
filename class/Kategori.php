@@ -8,8 +8,8 @@ class Kategori extends Database
 	private $conn;
 	private $tableName = "tb_kategori";
 	
-	public function createKategori($id,$nama_kategori){
-		$stmt = $this->query("INSERT INTO ".$this->tableName." (id_kategori, nama) VALUES('".$nama."')");
+	public function createKategori($nama_kategori){
+		$stmt = $this->query("INSERT INTO ".$this->tableName." (nama) VALUES('".$nama."')");
 		$stmt->execute();
 		return $stmt;
 	}
