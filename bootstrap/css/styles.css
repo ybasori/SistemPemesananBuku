@@ -1,0 +1,49 @@
+body {
+	font-family: 'Sansita';
+}
+
+/* Sidebar */
+
+.sidebar {
+	display: block;
+	background-color: #fff;
+	padding: 0;
+	display: none;
+}
+
+.sidebar form {
+	padding: 20px 15px 5px 15px;
+	border-bottom: 1px solid #eee;
+	margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+	.sidebar {
+		display: block;
+  		position: fixed;
+		top: 50px;
+		bottom: 0;
+		left: 0;
+		z-index: 1000;
+		display: block;
+		margin: 0;
+		padding: 0;
+		overflow-x: hidden;
+		overflow-y: auto; 
+		background-color: #fff;
+		box-shadow: 1px 0px 10px rgba(0, 0, 0, .05);
+	}
+	
+}
+
+.sidebar ul.nav a:hover {
+	text-decoration: none;
+	background-color: #e9ecf2;
+}
+
+.sidebar ul.nav .active a,.sidebar ul.nav .active > a:hover,
+.sidebar ul.nav .active > a:focus {
+	color: #fff;
+	background-color: #30a5ff;
+}*/
+

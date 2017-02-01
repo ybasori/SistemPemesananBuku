@@ -1,0 +1,47 @@
+Tabel Member :
+- id_member
+- email
+- password
+- level
+=================
+Tabel Profil :
+- id_member
+- nama_lengkap
+- jenis_kelamin
+- no_telepon
+- alamat
+- path_foto
+=================
+Tabel Kategori :
+- id_kategori
+- nama_kategori
+=================
+Tabel Produk :
+- id_produk
+- id_kategori
+- nama_produk
+- keterangan
+- path_foto
+
+
+=======================================================================
+
+Tabel Member :
+- id_member
+- email
+- password
+- level
+- nama_lengkap
+- jenis_kelamin
+- no_telepon
+- alamat
+- path_foto
+
+=================
+
+Tabel Produk :
+- id_produk
+- nama_produk
+- keterangan
+- nama_kategori
+- path_foto
