@@ -6,7 +6,7 @@
 class Kategori extends Database
 {
 	private $conn;
-	private $tableName = "tb_produk";
+	private $tableName = "tb_kategori";
 	
 	public function createKategori($id,$nama_kategori){
 		$stmt = $this->query("INSERT INTO ".$this->tableName." (id_kategori, nama) VALUES('".$nama."')");
@@ -15,7 +15,7 @@ class Kategori extends Database
 	}
 
 	public function readKategori(){
-		$stmt = $this->query("SELECT kategori FROM ".$this->tableName);
+		$stmt = $this->query("SELECT * FROM ".$this->tableName);
 		return $stmt;
 	}
 

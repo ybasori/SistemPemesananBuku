@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title><?php echo $_GET['menu']; ?></title>
+	<title><?php echo $sys->uri(0); ?></title>
 	<link href="https://fonts.googleapis.com/css?family=Sansita" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="../bootstrap/css/styles.css">
-	<link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
-	<link rel="stylesheet" href="../plugins/datatables/jquery.dataTables.min.css">
-	<link rel="stylesheet" href="../plugins/sweetalert/sweetalert.css">
-	<script type="text/javascript" src="../plugins/jQuery/jQuery-2.1.4.min.js"></script>
-	<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
-	<script src="../plugins/datatables/jquery.dataTables.min.js"></script> <!-- lib js untuk datatables -->
-	<script src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
-	<script src="../plugins/sweetalert/sweetalert.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="<?php echo $sys->base_url(); ?>/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo $sys->base_url() ?>/bootstrap/css/styles.css">
+	<link rel="stylesheet" href="<?php echo $sys->base_url() ?>/plugins/datatables/dataTables.bootstrap.css">
+	<link rel="stylesheet" href="<?php echo $sys->base_url() ?>/plugins/datatables/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="<?php echo $sys->base_url() ?>/plugins/sweetalert/sweetalert.css">
+	<script type="text/javascript" src="<?php echo $sys->base_url() ?>/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="<?php echo $sys->base_url() ?>/bootstrap/js/bootstrap.min.js"></script>
+	<script src="<?php echo $sys->base_url() ?>/plugins/datatables/jquery.dataTables.min.js"></script> <!-- lib js untuk datatables -->
+	<script src="<?php echo $sys->base_url() ?>/plugins/datatables/dataTables.bootstrap.min.js"></script>
+	<script src="<?php echo $sys->base_url() ?>/plugins/sweetalert/sweetalert.min.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -43,10 +43,10 @@
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 		
 		<ul class="nav menu">
-			<li id='dashboard'><a href="http://localhost/SistemPemesananBuku/view/media.php?menu=Dashboard"><i class="glyphicon glyphicon-home"></i> Dashboard</a></li>
-			<li id="member"><a href="http://localhost/SistemPemesananBuku/view/media.php?menu=Member"><i class="glyphicon glyphicon-th-list"></i> Member</a></li>
-			<li id="kategori"><a href="http://localhost/SistemPemesananBuku/view/media.php?menu=Kategori"><i class="glyphicon glyphicon-menu-hamburger"></i> Kategori</a></li>
-			<li id="produk"><a href="http://localhost/SistemPemesananBuku/view/media.php?menu=Produk"><i class="glyphicon glyphicon-shopping-cart"></i> Produk</a></li>
+			<li id='dashboard'><a href="<?php echo $sys->base_url(); ?>/Dashboard"><i class="glyphicon glyphicon-home"></i> Dashboard</a></li>
+			<li id="member"><a href="<?php echo $sys->base_url(); ?>/Member"><i class="glyphicon glyphicon-th-list"></i> Member</a></li>
+			<li id="kategori"><a href="<?php echo $sys->base_url(); ?>/Kategori"><i class="glyphicon glyphicon-menu-hamburger"></i> Kategori</a></li>
+			<li id="produk"><a href="<?php echo $sys->base_url(); ?>/Produk"><i class="glyphicon glyphicon-shopping-cart"></i> Produk</a></li>
 			
 		</ul>
 
@@ -55,24 +55,12 @@
 	<!--Content-->
 	<?php
 
-	$param = $_GET['menu'];
-
-	if ($param == 'Dashboard')
-	{
-		include ('dashboard.php');
-	}
-	elseif ($param == 'Kategori') 
-	{
-		include ('kategori.php');
-	}
-	elseif ($param == 'Member') 
-	{
-		include ('member.php');
-	}
-	else 
-	{
-		include ('produk.php');
-	}
+	$filename = 'view/'.$sys->uri(0).".php";
+		if (file_exists($filename)) {
+		    include $filename;
+		} else {
+		    echo "The file $filename does not exist";
+		}
 	?>
 	<!-- Modal Edit Profile-->
 	<div id="modal-profile" class="modal fade" role="dialog">
@@ -82,7 +70,7 @@
         			<button type="button" class="close" data-dismiss="modal">&times;</button>
         			<h4 class="modal-title">Edit Profil</h4>
       			</div>
-      			<form action="../action/produk.php" method="post" enctype="multipart/form-data" accept-charset="utf-8" role="form" class="form-horizontal">
+      			<form action="<?php echo $sys->base_url() ?>/action/produk.php" method="post" enctype="multipart/form-data" accept-charset="utf-8" role="form" class="form-horizontal">
       				<div class="modal-body">
         				<div class="form-group">
         					<label class="control-label col-sm-3" for="nama_lengkap">Nama Lengkap</label>
@@ -121,7 +109,7 @@
 	<!--END MODAL-->
 	<script type="text/javascript">
 		$(document).ready(function(){
-			var param = "<?php echo $_GET['menu']; ?>";
+			var param = "<?php echo $sys->uri(0); ?>";
 			if (param == 'Dashboard') {
 				$('#dashboard').addClass('active');
 			} else if (param == 'Member'){

@@ -39,7 +39,7 @@
         			<h4 class="modal-title">Tambah Produk</h4>
       			</div>
       			<!-- form edit -->
-        		<form action="../action/produk.php" method="post" enctype="multipart/form-data" accept-charset="utf-8" role="form" class="form-horizontal">
+        		<form action="<?php echo $sys->base_url() ?>/action/produk.php" method="post" enctype="multipart/form-data" accept-charset="utf-8" role="form" class="form-horizontal">
       				<div class="modal-body">
         				<div class="form-group">
         					<label class="control-label col-sm-3" for="nama_produk">Nama Produk</label>
@@ -91,7 +91,7 @@
         			<h4 class="modal-title">Update Produk</h4>
       			</div>
       			<!-- form edit -->
-        		<form action="../action/produk.php" method="post" enctype="multipart/form-data" accept-charset="utf-8" role="form" class="form-horizontal">
+        		<form action="<?php echo $sys->base_url() ?>/action/produk.php" method="post" enctype="multipart/form-data" accept-charset="utf-8" role="form" class="form-horizontal">
       				<div class="modal-body">
         				<div class="form-group">
         					<label class="control-label col-sm-3" for="nama_produk">Nama Produk</label>
@@ -138,7 +138,7 @@
 			  "autoWidth": false,
 			  "rowCallback": function( row, data, index ) {
 				  $('td:eq(0)', row).html((data[0]+1));
-				  $('td:eq(1)', row).html("<img style=\"width:100px\" src=\"../"+data[1]+"\">");
+				  $('td:eq(1)', row).html("<img style=\"width:100px\" src=\"<?php echo $sys->base_url() ?>/"+data[1]+"\">");
 				  $('td:eq(5)', row).html("<button class=\"btn btn-warning update-form\" data-toggle=\"modal\" data-target=\"#modal-produk-edit\" data-id=\""+data[1]+"\"><i class=\"glyphicon glyphicon-pencil\"></i> Ubah</button>&nbsp;&nbsp;<button class=\"btn btn-danger delete-form\" data-id=\""+data[1]+"\" ><i class=\"glyphicon glyphicon-trash\"></i> Hapus</button>");
 			  },			  
 			  "columnDefs": [
@@ -172,14 +172,17 @@
 
 			//data table
 	  		<?php
-	  			for($i=0;$i<5;$i++){
-	  				$data [$i][0] = $i;
-	  				$data [$i][1] = "gambar_produk/default_gambar_buku.png";
-	  				$data [$i][2] = "Nama Produk";
-	  				$data [$i][3] = "Keterangan";
-	  				$data [$i][4] = "Nama Kategori";
-	  				$data [$i][5] = $i;
-	  			}
+	  			$stmt=$product->readProduct();
+	  			$i=0;
+				while($row=$stmt->fetch()){
+					$data[$i][0]=$i;
+					$data[$i][1]=$row["path_foto"];
+					$data[$i][2]=$row["nama_produk"];
+					$data[$i][3]=$row["keterangan"];
+					$data[$i][4]=$row["nama_kategori"];
+					$data[$i][5]=$i;
+					$i++;
+				}
 				echo "
 				var data = ".json_encode($data).";
 				console.log(JSON.stringify(data));
@@ -209,7 +212,7 @@
 				function(isConfirm){
 	  				if (isConfirm) {
 	  					 $.ajax({
-			                url: "../action/produk.php",
+			                url: "<?php echo $sys->base_url() ?>/action/produk.php",
 			                type: "POST",
 			                data: "id="+id+"&path="+id,
 			                dataType: "html",
@@ -239,4 +242,10 @@
 
 		  	});
 		});	
-</script>	
+</script>
+oi
+<pre>
+<?php
+print_r($data);
+?>
+</pre>

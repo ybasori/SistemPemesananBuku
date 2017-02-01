@@ -2,7 +2,7 @@
     <head>
         <meta charset="UTF-8" />
         <title>login-page</title>
-        <link href="../bootstrap/css/style_login.css" rel="stylesheet">
+        <link href="<?php echo $sys->base_url() ?>/bootstrap/css/style_login.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 		<link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
         <link rel="icon" href="images/ico.jpg" type="image/x-icon">
@@ -20,7 +20,7 @@
                     <a class="hiddenanchor" id="tologin"></a>
                     <div id="wrapper">
                         <div id="login" class="animate form">
-                            <form method="POST" action="../action/login.php" autocomplete="on"> 
+                            <form method="POST" action="<?php echo $sys->base_url() ?>/action/login.php" autocomplete="on"> 
                                 <h1>Log in</h1> 
                                 <p> 
                                     <label for="username" class="uname" > Email</label>
@@ -41,7 +41,7 @@
                         </div>
 
                         <div id="register" class="animate form">
-                            <form  method="POST" action="../action/login.php" autocomplete="on"> 
+                            <form  method="POST" action="<?php echo $sys->base_url() ?>/action/login.php" autocomplete="on"> 
                                 <h1> Pendaftaran Diri </h1> 
                                 <p> 
                                     <label for="usernamesignup" class="uname" >Email</label>

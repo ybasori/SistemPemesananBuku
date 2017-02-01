@@ -32,7 +32,7 @@
         			<h4 class="modal-title">Tambah Kategori</h4>
       			</div>
       			<!-- form ADD -->
-        		<form action="../action/kategori.php" method="post" enctype="multipart/form-data" accept-charset="utf-8" role="form" class="form-horizontal">
+        		<form action="<?php echo $sys->base_url() ?>/action/kategori.php" method="post" enctype="multipart/form-data" accept-charset="utf-8" role="form" class="form-horizontal">
       				<div class="modal-body">
         				<div class="form-group">
         					<label class="control-label col-sm-3" for="nama_kategori">Nama Kategori</label>
@@ -63,7 +63,7 @@
         			<h4 class="modal-title">Edit Kategori</h4>
       			</div>
       			<!-- form edit -->
-        		<form action="../action/kategori.php" method="post" enctype="multipart/form-data" accept-charset="utf-8" role="form" class="form-horizontal">
+        		<form action="<?php echo $sys->base_url() ?>/action/kategori.php" method="post" enctype="multipart/form-data" accept-charset="utf-8" role="form" class="form-horizontal">
       				<div class="modal-body">
         				<div class="form-group">
         					<label class="control-label col-sm-3" for="nama_kategori">Nama Kategori</label>
@@ -113,12 +113,15 @@
 
   	$(document).ready(function(){
   		<?php
-  			for($i=0;$i<5;$i++){
-  				$data [$i][0] = $i;
-  				$data [$i][1] = "Nama Kategori";
-  				$data [$i][2] = $i;
-  				$data [$i][3] = "id_kategori";
-  			}
+  			$stmt=$kategori->readKategori();
+	  			$i=0;
+				while($row=$stmt->fetch()){
+					$data[$i][0]=$i;
+					$data[$i][1]=$row["nama_kategori"];
+					$data[$i][2]=$i;
+					$data[$i][3]=$row["id_kategori"];
+					$i++;
+				}
 			echo "
 			var data = ".json_encode($data).";
 			console.log(JSON.stringify(data));
@@ -148,7 +151,7 @@
 				function(isConfirm){
 	  				if (isConfirm) {
 	  					 $.ajax({
-			                url: "../action/kategori.php",
+			                url: "<?php echo $sys->base_url() ?>/action/kategori.php",
 			                type: "POST",
 			                data: "id="+id,
 			                dataType: "html",

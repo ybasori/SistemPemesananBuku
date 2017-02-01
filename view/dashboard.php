@@ -43,8 +43,8 @@
 				<!--END Jumlah-->
 				<div class="col-sm-12">
 					<div class="panel panel-default">
-						<div class="panel-body" style="background-image: url(../background/bg1.jpg); width: 100%">
-							<img src="../foto_member/default_foto_member.png" alt="member" class="img-responsive img-thumbnail img-circle center-block" style="width: 210px; margin-bottom: -35px">
+						<div class="panel-body" style="background-image: url(<?php echo $sys->base_url() ?>/background/bg1.jpg); width: 100%">
+							<img src="<?php echo $sys->base_url() ?>/foto_member/default_foto_member.png" alt="member" class="img-responsive img-thumbnail img-circle center-block" style="width: 210px; margin-bottom: -35px">
 						</div>
 					</div>
 				</div>
@@ -75,12 +75,12 @@
 	                    
 	            <div class="modal-body" >
 	                
-	                    <img id="foto" src="../foto_member/default_foto_member.png" class="img-responsive img-thumbnail center-block" style='width: 13em'>
+	                    <img id="foto" src="<?php echo $sys->base_url() ?>/foto_member/default_foto_member.png" class="img-responsive img-thumbnail center-block" style='width: 13em'>
 	                    <div class="caption">
 	                        <br/><br/>
 	                        <div class="bg-danger">Hanya File .jpg dan berukuran di bawah 10MB yang di perbolehkan</div>
 	                        <br/>
-	                        <form action="../action/member.php" method="post" enctype="multipart/form-data" accept-charset="utf-8">
+	                        <form action="<?php echo $sys->base_url() ?>/action/member.php" method="post" enctype="multipart/form-data" accept-charset="utf-8">
 	                            <a href="#" id="pilih"><span class="glyphicon glyphicon-camera" data-toggle="tooltip" data-placement="right" title="ganti foto"></span>
 	                            Pilih Foto
 	                            </a>

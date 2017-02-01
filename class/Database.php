@@ -18,7 +18,6 @@ class Database {
 
 	// DB Connection - start
 	public function __construct(){
-		session_start();
 		$this->host="127.0.0.1";
 		$this->db="db_buku";
 		$this->user="root";
