@@ -32,7 +32,7 @@
         			<h4 class="modal-title">Tambah Kategori</h4>
       			</div>
       			<!-- form ADD -->
-        		<form action="<?php echo $sys->base_url() ?>/action/kategori.php" method="post" enctype="multipart/form-data" accept-charset="utf-8" role="form" class="form-horizontal">
+        		<form action="<?php echo $sys->base_url() ?>/action/kategori" method="post" enctype="multipart/form-data" accept-charset="utf-8" role="form" class="form-horizontal">
       				<div class="modal-body">
         				<div class="form-group">
         					<label class="control-label col-sm-3" for="nama_kategori">Nama Kategori</label>
@@ -63,7 +63,7 @@
         			<h4 class="modal-title">Edit Kategori</h4>
       			</div>
       			<!-- form edit -->
-        		<form action="<?php echo $sys->base_url() ?>/action/kategori.php" method="post" enctype="multipart/form-data" accept-charset="utf-8" role="form" class="form-horizontal">
+        		<form action="<?php echo $sys->base_url() ?>/action/kategori" method="post" enctype="multipart/form-data" accept-charset="utf-8" role="form" class="form-horizontal">
       				<div class="modal-body">
         				<div class="form-group">
         					<label class="control-label col-sm-3" for="nama_kategori">Nama Kategori</label>
@@ -153,7 +153,7 @@
 			function(isConfirm){
   				if (isConfirm) {
   					 $.ajax({
-		                url: "<?php echo $sys->base_url() ?>/action/kategori.php",
+		                url: "<?php echo $sys->base_url() ?>/action/kategori",
 		                type: "POST",
 		                data: "id="+id,
 		                dataType: "html",
