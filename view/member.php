@@ -11,8 +11,11 @@
 				<thead>
 					<tr>
 						<th>No</th>
-						<th>Nama Kategori</th>
-						<th>Action</th>
+						<th>Foto</th>
+						<th>Nama Lengkap</th>
+						<th>Email</th>
+						<th>Level</th>
+						<th style="text-align: center;">Action</th>
 					</tr>
 				</thead>						
 			</table>                   
@@ -23,12 +26,16 @@
 	var t = $('#tabel_data_member').DataTable({
 		  "autoWidth": false,
 		  "rowCallback": function( row, data, index ) {
-			  $('td:eq(2)', row).html("<button class=\"btn btn-warning update-form\" data-toggle=\"modal\" data-target=\"#mymodalupdate\" data-id=\""+data[0]+"\"><i class=\"fa fa-edit\"></i>Ubah</button>&nbsp;&nbsp;<button class=\"btn btn-danger delete-form\" data-toggle=\"modal\" data-target=\"#mymodaldelete\" data-id=\""+data[0]+"\" ><i class=\"fa fa-trash\"></i>Hapus</button>");
+		  	$('td:eq(1)', row).html("<img style=\"width:100px\" src=\"../"+data[1]+"\">");
+			 $('td:eq(5)', row).html("<button class=\"btn btn-warning update-form\" data-toggle=\"modal\" data-target=\"#mymodalupdate\" data-id=\""+data[0]+"\"><i class=\"fa fa-edit\"></i>Ubah</button>&nbsp;&nbsp;<button class=\"btn btn-danger delete-form\" data-toggle=\"modal\" data-target=\"#mymodaldelete\" data-id=\""+data[0]+"\" ><i class=\"fa fa-trash\"></i>Hapus</button>");
 		  },			  
 		  "columnDefs": [
 				{ "width": "2%", "targets": 0 },
 				{ "width": "15%", "targets": 1 },
-				{ "width": "20%", "targets": 2 }
+				{ "width": "20%", "targets": 2 },
+				{ "width": "20%", "targets": 3 },
+				{ "width": "20%", "targets": 4 },
+				{ "width": "20%", "targets": 5 }
 				]
 	});	
 
@@ -48,10 +55,13 @@
 
   	$(document).ready(function(){
   		<?php
-  			for($i=0;$i<5;$i++){
-  				$data [$i][0] = "ini";
-  				$data [$i][1] = "ini";
-  				$data [$i][2] = "ini";
+  			for($i=0;$i<=5;$i++){
+  				$data [$i][0] = $i+1;
+  				$data [$i][1] = "foto_member/default_foto_member.png";
+  				$data [$i][2] = "Nama Lengkap";
+  				$data [$i][3] = "Email";
+  				$data [$i][4] = "Level";
+  				$data [$i][5] =$i;
   			}
 			echo "
 			var data = ".json_encode($data).";
