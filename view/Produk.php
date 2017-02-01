@@ -44,28 +44,26 @@
         				<div class="form-group">
         					<label class="control-label col-sm-3" for="nama_produk">Nama Produk</label>
         					<div class="col-sm-7">
-        						<input type="text" name="nama_produk" id="nama_produk" class="form-control" placeholder="eg. Kancil Nyolong Kolor">
+        						<input type="text" name="nama_produk" id="add_nama_produk" class="form-control" placeholder="eg. Kancil Nyolong Kolor">
         					</div>
         				</div>
         				<div class="form-group">
         					<label class="control-label col-sm-3" for="kategori">Kategori</label>
         					<div class="col-sm-7">
-        						<select name="kategori" id="kategori" class="form-control">
-        							<option>Pendidikan</option>
-        							<option>Hiburan</option>
+        						<select name="kategori" id="add_kategori" class="form-control">
         						</select>
         					</div>
         				</div>
         				<div class="form-group">
         					<label class="control-label col-sm-3" for="keterangan">Keterangan</label>
         					<div class="col-sm-7">
-        						<input type="text" name="keterangan" id="keterangan" class="form-control" placeholder="eg. Buku Dikarang Oleh Saya Sendiri">
+        						<input type="text" name="keterangan" id="add_keterangan" class="form-control" placeholder="eg. Buku Dikarang Oleh Saya Sendiri">
         					</div>
         				</div>
 						<div class="form-group">
 							<label for="path_produk" class="control-label col-sm-3" >File</label>
 							<div class="col-sm-7">
-								<input type="file" name="path_produk" id="path_produk">
+								<input type="file" name="path_produk" id="add_path_produk">
 								<p class="help-block" id="helper-block-path">Ukuran File Max 3MB</p>
 							</div>
 						</div>
@@ -96,28 +94,33 @@
         				<div class="form-group">
         					<label class="control-label col-sm-3" for="nama_produk">Nama Produk</label>
         					<div class="col-sm-7">
-        						<input type="text" name="nama_produk" id="nama_produk" class="form-control" value="nama_produk">
+        						<input type="text" name="nama_produk" id="edit_nama_produk" class="form-control" value="nama_produk">
         					</div>
         				</div>
         				<div class="form-group">
         					<label class="control-label col-sm-3" for="kategori">Kategori</label>
         					<div class="col-sm-7">
-        						<select name="kategori" id="kategori" class="form-control">
-        							<option>Pendidikan</option>
-        							<option>Hiburan</option>
+        						<select name="kategori" id="edit_kategori" class="form-control">
         						</select>
         					</div>
         				</div>
         				<div class="form-group">
         					<label class="control-label col-sm-3" for="keterangan">Keterangan</label>
         					<div class="col-sm-7">
-        						<input type="text" name="keterangan" id="keterangan" class="form-control" value="keterangan">
+        						<input type="text" name="keterangan" id="edit_keterangan" class="form-control" value="keterangan">
         					</div>
         				</div>
 						<div class="form-group">
-							<label for="path_produk" class="control-label col-sm-3" >File</label>
+							<label for="path_produk" class="control-label col-sm-3" >File Lama</label>
 							<div class="col-sm-7">
-								<input type="file" name="path_produk" id="path_produk">
+								<input type="text" name="path_produk" id="edit_old_path_produk" disabled><br><br>
+								<img width="200px" src="" id="edit_img_old_path_produk">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="path_produk" class="control-label col-sm-3" >File Baru</label>
+							<div class="col-sm-7">
+								<input type="file" name="path_produk" id="edit_path_produk">
 								<p class="help-block" id="helper-block-path">Ukuran File Max 3MB</p>
 							</div>
 						</div>
@@ -139,7 +142,7 @@
 			  "rowCallback": function( row, data, index ) {
 				  $('td:eq(0)', row).html((data[0]+1));
 				  $('td:eq(1)', row).html("<img style=\"width:100px\" src=\"<?php echo $sys->base_url() ?>/"+data[1]+"\">");
-				  $('td:eq(5)', row).html("<button class=\"btn btn-warning update-form\" data-toggle=\"modal\" data-target=\"#modal-produk-edit\" data-id=\""+data[1]+"\"><i class=\"glyphicon glyphicon-pencil\"></i> Ubah</button>&nbsp;&nbsp;<button class=\"btn btn-danger delete-form\" data-id=\""+data[1]+"\" ><i class=\"glyphicon glyphicon-trash\"></i> Hapus</button>");
+				  $('td:eq(5)', row).html("<button class=\"btn btn-warning update-form\" data-toggle=\"modal\" data-target=\"#modal-produk-edit\" data-id=\""+data[0]+"\"><i class=\"glyphicon glyphicon-pencil\"></i> Ubah</button>&nbsp;&nbsp;<button class=\"btn btn-danger delete-form\" data-id=\""+data[0]+"\" ><i class=\"glyphicon glyphicon-trash\"></i> Hapus</button>");
 			  },			  
 			  "columnDefs": [
     				{ "width": "2%",sClass: "dt-head-center dt-body-center",  "targets": 0 },
@@ -147,7 +150,8 @@
     				{ "width": "15%",sClass: "dt-head-center dt-body-left", "targets": 2 },
     				{ "width": "20%",sClass: "dt-head-center dt-body-left",  "targets": 3 },
     				{ "width": "15%",sClass: "dt-head-center dt-body-left", "targets": 4 },
-    				{ "width": "20%",sClass: "dt-head-center dt-body-center", "targets": 5 }
+    				{ "width": "20%",sClass: "dt-head-center dt-body-center", "targets": 5 },
+    				{ "visible":false, "targets": 6 }
   				]
 		});	
 
@@ -166,10 +170,14 @@
 		}
 
 	  	$(document).ready(function(){
-	  		//menampilkan kategori ke modal edit
-	  		/** var kategori = "<?php echo $_GET['kategori']; ?>"; */
-			$('#kategori').val(kategori);
-
+	  		//menampilkan kategori ke modal
+	  		<?php
+				$stmt=$kategori->readKategori();
+	  			$i=0;
+				while($row=$stmt->fetch()){
+					echo "$(\"select[name='kategori']\").append(\"<option value='".$row["id_kategori"]."'>".$row["nama_kategori"]."</option>\");";
+				}
+	  		?>
 			//data table
 	  		<?php
 	  			$stmt=$product->readProduct();
@@ -181,6 +189,7 @@
 					$data[$i][3]=$row["keterangan"];
 					$data[$i][4]=$row["nama_kategori"];
 					$data[$i][5]=$i;
+					$data[$i][6]=$row["id_kategori"];
 					$i++;
 				}
 				echo "
@@ -191,12 +200,19 @@
 	  		?> 
 		  	t.order( [ 0, 'asc' ] ).draw(false);	  		
 
-
+		  	$(".update-form").click(function(){
+		  		var indeks = $(this).data('id');
+		  		$("#edit_nama_produk").val(data[indeks][2]); 
+		  		$("#edit_kategori").val(data[indeks][6]); 
+		  		$("#edit_keterangan").val(data[indeks][3]); 
+		  		$("#edit_old_path_produk").val(data[indeks][1]); 
+		  		$("#edit_img_old_path_produk").attr('src', data[indeks][1]);
+		  	});
 		  	//sweetalert
 		  	$(".delete-form").click(function(){
 
-		  		var element = $(this);
-		  		var id = element.attr('data-id');
+		  		var indeks = $(this).data('id');
+		  		//console.log("id="+data[indeks][5]+"&path="+data[indeks][1]);
 			  	swal({
 					title: "Apakah Anda Yakin?",
 					text: "Jika Anda Menghapus Ini, Maka Tidak Dapat Dikembalikan!",
@@ -214,7 +230,7 @@
 	  					 $.ajax({
 			                url: "<?php echo $sys->base_url() ?>/action/produk.php",
 			                type: "POST",
-			                data: "id="+id+"&path="+id,
+			                data: "id="+data[indeks][5]+"&path="+data[indeks][1],
 			                dataType: "html",
 			                success: function(data){
 			                        if (data==1){
