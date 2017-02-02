@@ -4,7 +4,7 @@
 	function __autoload($namaClass){
 		require "class/".$namaClass.".php";
 	}
-	$helper= new Helper;
+
 	$sys= new Rules("SistemPemesananBuku");
 	// System
 	// how to use:
@@ -13,6 +13,7 @@
 	// $sys->base_url() = http://127.0.0.1
 	// $sys->site_url(data) = http://127.0.0.1/data
 	// $sys->redirect(URL) http://URL
+	$helper= new Helper;
 	 
 	$db = new Database;
 	// Database Connection and user session
@@ -26,7 +27,7 @@
 	// $db->userdata("id") / $db->userdata("email") / $db->userdata("level")
 	// session destroy: $db->destroy_userdata()
 
-	$mbr = new Member;
+	// $mbr = new Member;
 	// Member login, Create, Update, Delete
 	// $mbr->login(email, password)
 
