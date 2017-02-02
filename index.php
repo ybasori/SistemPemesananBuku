@@ -35,6 +35,8 @@
 	
 	$kategori = new Kategori;
 
+	$member=new Member;
+
 // including classes - end
 
 	

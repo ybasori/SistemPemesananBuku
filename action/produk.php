@@ -152,5 +152,15 @@ switch ($_POST["formaction"]) {
 				}
 		}
 	break;
+	case "delete":
+	if(!empty($_POST["id"])){
+		$product->deleteProduct($_POST["id"]);
+		unlink($_POST["path_produk"]);
+		$sys->redirect($sys->base_url()."/Produk");
+	}
+	else{
+		$sys->redirect($sys->base_url()."/Produk");
+	}
+	break;
 }
 ?>
