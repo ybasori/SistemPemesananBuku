@@ -60,12 +60,45 @@ class Rules
 	public function dir(){
 		return $this->site;
 	}
+	public function dir_imgProduct(){
+		return "gambar_produk";
+	}
+	public function dir_imgMember(){
+		return $this->dir()."/foto_member";
+	}
 	public function redirect($data){
 		?>
 		<script type="text/javascript">
 			window.location.href="<?php echo $data; ?>"
 		</script>
 		<?php
+	}
+	public function img_rules($data){
+		if(!empty($data["tmp_name"])){
+			$check = getimagesize($data["tmp_name"]);
+		}
+		else{
+			$check =false;
+		}
+		$empty=1;
+		if($check !== false) {
+			$ext= pathinfo($data["name"])["extension"]; // extension file
+			$name = str_replace(".".$ext, "", $data["name"]);
+			$newname= $name."-".date("YmdHis").".".$ext; // rename file
+			$target_file = $this->dir_imgProduct() ."/". basename($newname); // target directory image
+			$empty=0;
+			$gambar=array(
+				"target" => $target_file,
+				"empty" => $empty
+				);
+		}
+		else{
+			$gambar=array(
+				"target" => "",
+				"empty" => 1
+				);
+		}
+		return $gambar;
 	}
 	
 }

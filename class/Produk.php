@@ -14,9 +14,7 @@ class Produk extends Database
 	public $keterangan;
 	
 	public function createProduct($id_kategori,$nama_produk,$path_produk,$keterangan){
-		$stmt = $this->query("INSERT INTO ".$this->tableName." (id_kategori, nama_produk, path_foto, keterangan) VALUES('".$id_kategori."','".$nama_produk."','".$path_produk."','".$keterangan."')");
-		$stmt->execute();
-		return $stmt;
+		return $this->query("INSERT INTO ".$this->tableName." (id_kategori, nama_produk, path_foto, keterangan) VALUES('".$id_kategori."','".$nama_produk."','".$path_produk."','".$keterangan."')");
 	}
 
 	public function readProduct(){
