@@ -39,7 +39,7 @@
         			<h4 class="modal-title">Tambah Produk</h4>
       			</div>
       			<!-- form edit -->
-        		<form action="<?php echo $sys->base_url() ?>/action/produk.php" method="post" enctype="multipart/form-data" accept-charset="utf-8" role="form" class="form-horizontal">
+        		<form method="post" role="form" class="form-horizontal" id="formadd">
       				<div class="modal-body">
         				<div class="form-group">
         					<label class="control-label col-sm-3" for="nama_produk">Nama Produk</label>
@@ -67,12 +67,17 @@
 								<p class="help-block" id="helper-block-path">Ukuran File Max 3MB</p>
 							</div>
 						</div>
+						<div id="alert"></div>
 	      			</div>
 	      			<div class="modal-footer">
+		      			<input type="hidden" name="formaction" value="insert">
 	      				<button type="submit" class="btn btn-primary" name="btn_add_produk">Simpan</button>
 	        			<button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
 	      			</div>
       			</form>
+      			<script type="text/javascript">
+      			<?php echo $helper->jquery_ajaxform("formadd",$sys->base_url()."/action/produk","alert") ?>
+      			</script>
         			<!--END FORM EDIT-->
     		</div>
   		</div>
@@ -88,7 +93,7 @@
         			<h4 class="modal-title">Update Produk</h4>
       			</div>
       			<!-- form edit -->
-        		<form action="<?php echo $sys->base_url() ?>/action/produk.php" method="post" enctype="multipart/form-data" accept-charset="utf-8" role="form" class="form-horizontal">
+        		<form role="form" class="form-horizontal" id="FormEdit">
       				<div class="modal-body">
         				<div class="form-group">
         					<label class="control-label col-sm-3" for="nama_produk">Nama Produk</label>
@@ -124,11 +129,17 @@
 							</div>
 						</div>
 	      			</div>
+	      			<div id="alert-edit"></div>
 	      			<div class="modal-footer">
+	      				<input type="hidden" name="formaction" value="update">
+	      				<input type="hidden" name="id_produk" id="edit_id_produk">
 	      				<button type="submit" class="btn btn-primary" name="btn_edit_produk">Simpan</button>
 	        			<button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
 	      			</div>
       			</form>
+      			<script type="text/javascript">
+      			<?php echo $helper->jquery_ajaxform("FormEdit",$sys->base_url()."/action/produk","alert-edit") ?>
+      			</script>
         			<!--END FORM EDIT-->
     		</div>
 
@@ -197,7 +208,7 @@
 					$data[$i][2]=$row["nama_produk"];
 					$data[$i][3]=$row["keterangan"];
 					$data[$i][4]=$row["nama_kategori"];
-					$data[$i][5]=$i;
+					$data[$i][5]=$row["id_produk"];
 					$data[$i][6]=$row["id_kategori"];
 					$i++;
 				}
@@ -216,6 +227,7 @@
 		  		$("#edit_keterangan").val(data[indeks][3]); 
 		  		$("#edit_old_path_produk").val(data[indeks][1]); 
 		  		$("#edit_img_old_path_produk").attr('src', data[indeks][1]);
+		  		$("#edit_id_produk").val(data[indeks][5]); 
 		  	});
 
 		  	$("#edit_path_produk").change(function(){
@@ -270,11 +282,6 @@
 	  				}
 				});
 		  	});
-		});	
+		});
+
 </script>
-oi
-<pre>
-<?php
-print_r($data);
-?>
-</pre>
