@@ -253,10 +253,17 @@
 				},
 				function(isConfirm){
 	  				if (isConfirm) {
+	  					/*
 	  					 $.ajax({
-			                url: "<?php echo $sys->base_url() ?>/action/produk.php",
+			                url: "/action/produk",
 			                type: "POST",
-			                data: "id="+data[indeks][5]+"&path="+data[indeks][1],
+			                data: function(){
+			                	var cek = new FormData();
+			                	cek.append("id",data[indeks][5]);
+			                	cek.append("path_produk",data[indeks][1]);
+			                	cek.append("formaction","delete");
+			                	return cek;
+			                },
 			                dataType: "html",
 			                success: function(data){
 			                        if (data==1){
@@ -276,7 +283,39 @@
 			                        swal("Error!", "Silahkan Perikas Koneksi dan Ulangi", "error");
 			                            }, 2000);}
 			                 
-			            });
+			            });*/
+				        $.ajax({
+							dataType: "html", 
+							url:"<?php echo $sys->base_url() ?>/action/produk",
+							type:"POST",
+						    contentType: false,
+						    processData: false,     
+							data: function() {
+						        var cek = new FormData();
+			                	cek.append("id",data[indeks][5]);
+			                	cek.append("path_produk",data[indeks][1]);
+			                	cek.append("formaction","delete");
+						        return cek;
+						    }(),
+						    success:function(data){
+								if (true){
+		                            setTimeout(function(){
+		                                swal({
+		                                    title: "Sukses",
+		                                    text: "Data Produk dan Foto Telah Dihapus!",
+		                                    type: "success"
+		                                }, function(){
+		                                    window.location.reload(true);
+		                                });
+		                            }, 2000);
+		                        }
+							},
+			                error: function (xhr, ajaxOptions, thrownError) {
+			                    setTimeout(function(){
+			                        swal("Error!", "Silahkan Perikas Koneksi dan Ulangi", "error");
+			                        }, 2000);
+			                }
+						});	
 	  				} else {
 		    			swal("Batal", "Anda Tidak Jadi Menghapus Data Produk :)", "error");
 	  				}

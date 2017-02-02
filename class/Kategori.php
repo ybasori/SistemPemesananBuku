@@ -26,6 +26,11 @@ class Kategori extends Database
 		$stmt = $this->query("DELETE FROM ".$this->tableName." WHERE id_kategori = '$id'");
 		return $stmt;
 	}
+	public function count_by_name($data){
+		$stmt=$this->query("SELECT * FROM ".$this->tableName." WHERE nama_kategori='$data'");
+		$zzz=$stmt->fetch();
+		return count($zzz);
+	}
 
 }
 

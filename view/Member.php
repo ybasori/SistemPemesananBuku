@@ -95,13 +95,16 @@
 
   	$(document).ready(function(){
   		<?php
-  			for($i=0;$i<=5;$i++){
-  				$data [$i][0] = $i+1;
-  				$data [$i][1] = "foto_member/default_foto_member.png";
-  				$data [$i][2] = "Nama Lengkap";
-  				$data [$i][3] = "Email";
-  				$data [$i][4] = "member";
-  				$data [$i][5] =$i;
+  			$stmt=$member->readMember();
+  			$i=1;
+  			while($row=$stmt->fetch()){
+  				$data[$i][0] = $i;
+  				$data [$i][1] = $row["path_foto"];
+  				$data [$i][2] = $row["nama_lengkap"];
+  				$data [$i][3] = $row["email"];
+  				$data [$i][4] = $row["level"];
+  				$data [$i][5] = $row["id_member"];
+  				$i++;
   			}
 			echo "
 			var data = ".json_encode($data).";
@@ -135,8 +138,9 @@
 			},
 			function(isConfirm){
   				if (isConfirm) {
+  					/*
   					 $.ajax({
-		                url: "<?php echo $sys->base_url() ?>/action/member.php",
+		                url: "/action/member.php",
 		                type: "POST",
 		                data: "id="+data[indeks][5],
 		                dataType: "html",
@@ -158,7 +162,38 @@
 		                        swal("Error!", "Silahkan Perikas Koneksi dan Ulangi", "error");
 		                            }, 2000);}
 		                 
-		            });
+		            });*/
+			        $.ajax({
+						dataType: "html", 
+		                url: "<?php echo $sys->base_url() ?>/action/member.php",
+						type:"POST",
+					    contentType: false,
+					    processData: false,     
+						data: function() {
+					        var cek = new FormData();
+		                	cek.append("id",data[indeks][5]);
+		                	cek.append("formaction","delete");
+					        return cek;
+					    }(),
+					    success:function(data){
+							if (true){
+	                            setTimeout(function(){
+	                                swal({
+	                                    title: "Sukses",
+	                                    text: "Data Member Telah Dihapus!",
+	                                    type: "success"
+	                                }, function(){
+	                                    window.location.reload(true);
+	                                });
+	                            }, 2000);
+	                        }
+						},
+		                error: function (xhr, ajaxOptions, thrownError) {
+		                    setTimeout(function(){
+		                        swal("Error!", "Silahkan Perikas Koneksi dan Ulangi", "error");
+		                        }, 2000);
+		                }
+					});	
   				} else {
 	    			swal("Batal", "Anda Tidak Jadi Menghapus Data Member :)", "error");
   				}
@@ -166,3 +201,6 @@
 	  	});	  	  		
 	});	
 </script>
+<pre>
+	<?php print_r($data); ?>
+</pre>

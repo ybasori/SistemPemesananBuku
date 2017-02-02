@@ -32,7 +32,7 @@
         			<h4 class="modal-title">Tambah Kategori</h4>
       			</div>
       			<!-- form ADD -->
-        		<form action="<?php echo $sys->base_url() ?>/action/kategori" method="post" enctype="multipart/form-data" accept-charset="utf-8" role="form" class="form-horizontal">
+        		<form id="formAdd" method="post" enctype="multipart/form-data" accept-charset="utf-8" role="form" class="form-horizontal">
       				<div class="modal-body">
         				<div class="form-group">
         					<label class="control-label col-sm-3" for="nama_kategori">Nama Kategori</label>
@@ -40,29 +40,25 @@
         						<input type="text" name="nama_kategori" id="nama_kategori" class="form-control" placeholder="eg. Hiburan">
         					</div>
         				</div>
+        				<div id="alert-add"></div>
         			</div>
         				
 	      			<div class="modal-footer">
+	      				<input type="hidden" name="formaction" value="insert">
 	      				<button type="submit" class="btn btn-primary" name="btn_add_kategori">Simpan</button>
 	        			<button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
 	      			</div>
       			</form>
+      			<script type="text/javascript">
+        				<?php echo $helper->jquery_ajaxform("formAdd", $sys->base_url()."/action/kategori","alert-add"); ?>
+        			</script>
         			<!--END FORM EDIT-->
     		</div>
 
   		</div>
 	</div>
 <!--END MODAL ADD PRODUCT-->
-<?php
-$stmt=$kategori->readKategori();
-$i=0;
-while($row=$stmt->fetch()):
-	$data[$i][0]=$i;
-	$data[$i][1]=$row["nama_kategori"];
-	$data[$i][2]=$row["id_kategori"];
-	$i++;
-				
-?>
+
 <!-- Modal Edit Produk-->
 	<div id="modal-kategori-edit" class="modal fade" role="dialog">
   		<div class="modal-dialog">    
@@ -72,23 +68,27 @@ while($row=$stmt->fetch()):
         			<h4 class="modal-title">Edit Kategori</h4>
       			</div>
       			<!-- form edit -->
-        		<form action="<?php echo $sys->base_url() ?>/action/kategori" method="post" enctype="multipart/form-data" accept-charset="utf-8" role="form" class="form-horizontal">
+        		<form method="post" id="formEdit" accept-charset="utf-8" role="form" class="form-horizontal">
       				<div class="modal-body">
         				<div class="form-group">
         					<label class="control-label col-sm-3" for="nama_kategori">Nama Kategori</label>
         					<div class="col-sm-7">
-        						<input type="text" name="nama_kategori" id="edit_nama_kategori" class="form-control" value="<?php echo $row["nama_kategori"] ?>">
+        						<input type="text" name="nama_kategori" id="edit_nama_kategori" class="form-control" >
         					</div>
         				</div>
-        			</div>	
+        			</div>
+        			<div id="alert-edit"></div>
 	      			<div class="modal-footer">
-	      				<input type="hidden" name="id_kategori" value="<?php echo $row["id_kategori"] ?>">
+	      				<input type="hidden" name="id_kategori" id="edit_id_kategori">
+	      				<input type="hidden" name="formaction" value="update">
 	      				<button type="submit" class="btn btn-primary" name="btn_edit_produk">Simpan</button>
 	        			<button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
 	      			</div>
       			</form>
         			<!--END FORM EDIT-->
-        		<?php endwhile; ?>
+        			<script type="text/javascript">
+        				<?php echo $helper->jquery_ajaxform("formEdit", $sys->base_url()."/action/kategori","alert-edit"); ?>
+        			</script>
     		</div>
 
   		</div>
@@ -98,7 +98,7 @@ while($row=$stmt->fetch()):
 	var t = $('#tabel_data_kategori').DataTable({
 		  "rowCallback": function( row, data, index ) {
 			  $('td:eq(0)', row).html((data[0]+1));
-			  $('td:eq(2)', row).html("<button class=\"btn btn-warning update-form col-sm-4 col-sm-offset-1\" data-toggle=\"modal\" data-target=\"#modal-kategori-edit\" data-id=\""+data[0]+"\"><i class=\"glyphicon glyphicon-pencil\"></i> Ubah</button>&nbsp;&nbsp;<button class=\"btn btn-danger delete-form col-sm-4 col-sm-offset-1\" data-id=\""+data[2]+"\" ><i class=\"glyphicon glyphicon-trash\"></i> Hapus</button>");
+			  $('td:eq(2)', row).html("<button class=\"btn btn-warning update-form col-sm-4 col-sm-offset-1\" data-toggle=\"modal\" data-target=\"#modal-kategori-edit\" data-id=\""+data[0]+"\"><i class=\"glyphicon glyphicon-pencil\"></i> Ubah</button>&nbsp;&nbsp;<button class=\"btn btn-danger delete-form col-sm-4 col-sm-offset-1\" data-id=\""+data[0]+"\" ><i class=\"glyphicon glyphicon-trash\"></i> Hapus</button>");
 		  },			  
 		  "columnDefs": [
 				{ "width": "2%",sClass: "dt-head-center dt-body-center",  "targets": 0 },
@@ -123,14 +123,14 @@ while($row=$stmt->fetch()):
 
   	$(document).ready(function(){
   		<?php
-  		// 	$stmt=$kategori->readKategori();
-	  	// 		$i=0;
-				// while($row=$stmt->fetch()){
-				// 	$data[$i][0]=$i;
-				// 	$data[$i][1]=$row["nama_kategori"];
-				// 	$data[$i][2]=$row["id_kategori"];
-				// 	$i++;
-				// }
+  			$stmt=$kategori->readKategori();
+	  			$i=0;
+				while($row=$stmt->fetch()){
+					$data[$i][0]=$i;
+					$data[$i][1]=$row["nama_kategori"];
+					$data[$i][2]=$row["id_kategori"];
+					$i++;
+				}
 			echo "
 			var data = ".json_encode($data).";
 			console.log(JSON.stringify(data));
@@ -143,12 +143,11 @@ while($row=$stmt->fetch()):
 	  	$(".update-form").click(function(){
 	  		var indeks = $(this).data('id');
 	  		$("#edit_nama_kategori").val(data[indeks][1]); 
+	  		$("#edit_id_kategori").val(data[indeks][2]); 
 	  	});	  	
 	  	//sweetalert
 	  	$(".delete-form").click(function(){
 	  		var indeks = $(this).data('id');
-	  		var id = data[indeks][2];
-	  		console.log(id);
 		  	swal({
 				title: "Apakah Anda Yakin?",
 				text: "Jika Anda Menghapus Data Kategori Ini, Maka Data Tersebut Tidak Dapat Dikembalikan!",
@@ -163,8 +162,8 @@ while($row=$stmt->fetch()):
 			},
 			function(isConfirm){
   				if (isConfirm) {
-  					 $.ajax({
-		                url: "<?php echo $sys->base_url() ?>/action/kategori",
+  					/*$.ajax({
+		                url: "/action/kategori",
 		                type: "POST",
 		                data: "id="+id,
 		                dataType: "html",
@@ -186,7 +185,38 @@ while($row=$stmt->fetch()):
 		                        swal("Error!", "Silahkan Perikas Koneksi dan Ulangi", "error");
 		                            }, 2000);}
 		                 
-		            });
+		            });*/
+			        $.ajax({
+						dataType: "html", 
+	                	url: "<?php echo $sys->base_url() ?>/action/kategori",
+						type:"POST",
+					    contentType: false,
+					    processData: false,     
+						data: function() {
+					        var cek = new FormData();
+		                	cek.append("id",data[indeks][2]);
+		                	cek.append("formaction","delete");
+					        return cek;
+					    }(),
+					    success:function(data){
+							if (true){
+	                            setTimeout(function(){
+	                                swal({
+	                                    title: "Sukses",
+	                                    text: "Data Kategori Telah Dihapus!",
+	                                    type: "success"
+	                                }, function(){
+	                                    window.location.reload(true);
+	                                });
+	                            }, 2000);
+	                        }
+						},
+		                error: function (xhr, ajaxOptions, thrownError) {
+		                    setTimeout(function(){
+		                        swal("Error!", "Silahkan Perikas Koneksi dan Ulangi", "error");
+		                        }, 2000);
+		                }
+					});	
   				} else {
 	    			swal("Batal", "Anda Tidak Jadi Menghapus Data Kategori :)", "error");
   				}

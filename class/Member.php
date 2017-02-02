@@ -17,7 +17,10 @@ class Member extends Database
 				$this->set_userdata($data);
 				return $data;
 			}
-		
+	}
+	public function readMember(){
+		$member=$this->query("SELECT tb_member.*, tb_profil.* FROM tb_member, tb_profil WHERE tb_member.id_member=tb_profil.id_member");
+		return $member;
 	}
 }
 ?>
