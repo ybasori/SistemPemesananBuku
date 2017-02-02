@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.2
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Feb 02, 2017 at 09:52 
--- Server version: 10.1.13-MariaDB
--- PHP Version: 5.6.21
+-- Host: 127.0.0.1
+-- Generation Time: Feb 02, 2017 at 02:00 PM
+-- Server version: 10.1.16-MariaDB
+-- PHP Version: 7.0.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -59,9 +59,17 @@ CREATE TABLE `tb_member` (
 --
 
 INSERT INTO `tb_member` (`id_member`, `email`, `password`, `level`) VALUES
-(1, 'master@gmail.com', '4f26aeafdb2367620a393c973eddbe8f8b846ebd', 'master'),
-(2, 'member1@gmail.com', 'bead7302b5d7d91a1c9fd800940081f90f4920f9', 'member'),
-(3, 'member2@gmail.com', 'e3070b522277c5cf015a97fb86cbaefe3df1db8f', 'member');
+(1, 'master@gmail.com', '4f26aeafdb2367620a393c973eddbe8f8b846ebd', 'master');
+
+--
+-- Triggers `tb_member`
+--
+DELIMITER $$
+CREATE TRIGGER `delete_profile` AFTER DELETE ON `tb_member` FOR EACH ROW BEGIN
+DELETE FROM tb_profil WHERE tb_profil.id_member = old.id_member;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -112,9 +120,7 @@ CREATE TABLE `tb_profil` (
 --
 
 INSERT INTO `tb_profil` (`id_profil`, `id_member`, `nama_lengkap`, `jenis_kelamin`, `no_telepon`, `alamat`, `path_foto`) VALUES
-(1, 1, 'Master', 'Pria', '02192873623', 'Jakarta Timur', 'foto_member/master.jpg'),
-(2, 2, 'Member1', 'Wanita', '02192873621', 'Jakarta Selatan', 'foto_member/member1.jpg'),
-(3, 3, 'Member2', 'Pria', '02192873627', 'Jakarta Utara', 'foto_member/member2.jpg');
+(1, 1, 'Master', 'Pria', '02192873623', 'Jakarta Timur', 'foto_member/master.jpg');
 
 --
 -- Indexes for dumped tables
@@ -143,7 +149,8 @@ ALTER TABLE `tb_produk`
 --
 ALTER TABLE `tb_profil`
   ADD PRIMARY KEY (`id_profil`),
-  ADD KEY `jenis_kelamin` (`jenis_kelamin`);
+  ADD KEY `jenis_kelamin` (`jenis_kelamin`),
+  ADD KEY `id_member` (`id_member`);
 
 --
 -- AUTO_INCREMENT for dumped tables
