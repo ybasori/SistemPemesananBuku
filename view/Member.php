@@ -96,9 +96,9 @@
   	$(document).ready(function(){
   		<?php
   			$stmt=$member->readMember();
-  			$i=1;
+  			$i=0;
   			while($row=$stmt->fetch()){
-  				$data[$i][0] = $i;
+  				$data [$i][0] = $i;
   				$data [$i][1] = $row["path_foto"];
   				$data [$i][2] = $row["nama_lengkap"];
   				$data [$i][3] = $row["email"];
