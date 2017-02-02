@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 31, 2017 at 12:48 
+-- Generation Time: Feb 02, 2017 at 09:52 
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.21
 
@@ -98,6 +98,7 @@ INSERT INTO `tb_produk` (`id_produk`, `id_kategori`, `nama_produk`, `keterangan`
 --
 
 CREATE TABLE `tb_profil` (
+  `id_profil` int(11) NOT NULL,
   `id_member` int(11) NOT NULL,
   `nama_lengkap` varchar(40) NOT NULL,
   `jenis_kelamin` enum('Pria','Wanita') NOT NULL DEFAULT 'Pria',
@@ -110,10 +111,10 @@ CREATE TABLE `tb_profil` (
 -- Dumping data for table `tb_profil`
 --
 
-INSERT INTO `tb_profil` (`id_member`, `nama_lengkap`, `jenis_kelamin`, `no_telepon`, `alamat`, `path_foto`) VALUES
-(1, 'Master', 'Pria', '085612345833', 'Kelapa Gading', 'foto_member/master.jpg'),
-(2, 'Member 1', 'Wanita', '085612345678', 'Pulo Gadung', 'foto_member/member1.jpg'),
-(3, 'Member 2', 'Pria', '087788888112', 'Rawamangun', 'foto_member/member2.jpg');
+INSERT INTO `tb_profil` (`id_profil`, `id_member`, `nama_lengkap`, `jenis_kelamin`, `no_telepon`, `alamat`, `path_foto`) VALUES
+(1, 1, 'Master', 'Pria', '02192873623', 'Jakarta Timur', 'foto_member/master.jpg'),
+(2, 2, 'Member1', 'Wanita', '02192873621', 'Jakarta Selatan', 'foto_member/member1.jpg'),
+(3, 3, 'Member2', 'Pria', '02192873627', 'Jakarta Utara', 'foto_member/member2.jpg');
 
 --
 -- Indexes for dumped tables
@@ -141,7 +142,8 @@ ALTER TABLE `tb_produk`
 -- Indexes for table `tb_profil`
 --
 ALTER TABLE `tb_profil`
-  ADD UNIQUE KEY `id_member` (`id_member`);
+  ADD PRIMARY KEY (`id_profil`),
+  ADD KEY `jenis_kelamin` (`jenis_kelamin`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -151,7 +153,7 @@ ALTER TABLE `tb_profil`
 -- AUTO_INCREMENT for table `tb_kategori`
 --
 ALTER TABLE `tb_kategori`
-  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `tb_member`
 --
@@ -166,17 +168,7 @@ ALTER TABLE `tb_produk`
 -- AUTO_INCREMENT for table `tb_profil`
 --
 ALTER TABLE `tb_profil`
-  MODIFY `id_member` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `tb_profil`
---
-ALTER TABLE `tb_profil`
-  ADD CONSTRAINT `tb_profil_ibfk_1` FOREIGN KEY (`id_member`) REFERENCES `tb_member` (`id_member`) ON DELETE CASCADE ON UPDATE CASCADE;
-
+  MODIFY `id_profil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

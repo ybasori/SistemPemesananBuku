@@ -5,6 +5,7 @@ Tabel Member :
 - level
 =================
 Tabel Profil :
+- id_profil
 - id_member
 - nama_lengkap
 - jenis_kelamin
