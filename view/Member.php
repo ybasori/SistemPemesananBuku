@@ -1,3 +1,8 @@
+<?php
+if($db->userdata("level")=="member"){
+	$sys->redirect($sys->base_url()."/Dashboard");
+}
+?>
 <main class="col-xs-12 col-sm-9 col-lg-10 pull-right" style="top:55px;">
 	<div class="col-sm-12 panel panel-default" style="padding-top: 15px">
 	    <div class="panel-body">
@@ -26,7 +31,7 @@
         			<h4 class="modal-title">Update Member</h4>
       			</div>
       			<!-- form edit -->
-        		<form action="<?php echo $sys->base_url() ?>/action/produk.php" method="post" enctype="multipart/form-data" accept-charset="utf-8" role="form" class="form-horizontal">
+        		<form id="formUbah" method="post" enctype="multipart/form-data" accept-charset="utf-8" role="form" class="form-horizontal">
       				<div class="modal-body">
         				<div class="form-group">
         					<label class="control-label col-sm-3" for="nama">Nama</label>
@@ -49,12 +54,18 @@
         						</select> 
         					</div>
         				</div>
+        				<div id="alert-ubah"></div>
 	      			</div>
 	      			<div class="modal-footer">
+	      				<input type="hidden" name="id_member" id="edit_id">
+	      				<input type="hidden" name="formaction" value="update">
 	      				<button type="submit" class="btn btn-primary" name="btn_edit_produk">Simpan</button>
 	        			<button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
 	      			</div>
       			</form>
+      			<script type="text/javascript">
+      				<?php echo $helper->jquery_ajaxform("formUbah",$sys->base_url()."/action/member","alert-ubah"); ?>
+      			</script>
         			<!--END FORM EDIT-->
     		</div>
 
@@ -66,6 +77,7 @@
 	var t = $('#tabel_data_member').DataTable({
 		  "autoWidth": false,
 		  "rowCallback": function( row, data, index ) {
+		  	$('td:eq(0)', row).html(data[0]+1);
 		  	$('td:eq(1)', row).html("<img style=\"width:100px\" src=\"<?php echo $sys->base_url(); ?>/"+data[1]+"\">");
 			 $('td:eq(5)', row).html("<button class=\"btn btn-warning update-form\" data-toggle=\"modal\" data-target=\"#modal-member-edit\" data-id=\""+data[0]+"\"><i class=\"glyphicon glyphicon-pencil\"></i> Ubah</button>&nbsp;&nbsp;<button class=\"btn btn-danger delete-form\" data-id=\""+data[0]+"\" ><i class=\"glyphicon glyphicon-trash\"></i> Hapus</button>");
 		  },			  
@@ -117,7 +129,9 @@
 	  		var indeks = $(this).data('id');
 	  		$("#edit_nama").val(data[indeks][2]); 
 	  		$("#edit_email").val(data[indeks][3]); 
-	  		$("#edit_level").val(data[indeks][4]); 
+	  		$("#edit_level").val(data[indeks][4]);
+	  		$("#edit_id").val(data[indeks][5]); 
+	  		console.log("id="+data[indeks][5]);
 	  	});
 
 	  	//sweetalert
@@ -165,7 +179,7 @@
 		            });*/
 			        $.ajax({
 						dataType: "html", 
-		                url: "<?php echo $sys->base_url() ?>/action/member.php",
+		                url: "<?php echo $sys->base_url() ?>/action/member",
 						type:"POST",
 					    contentType: false,
 					    processData: false,     

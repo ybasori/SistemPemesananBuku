@@ -5,6 +5,7 @@
 		<div class="col-sm-12 panel">
 			<div class="panel-body">
 				<!--Jumlah Produk DLL-->
+				<?php if($db->userdata("level")=="master"){?>
 				<div id="number">
 					<div class="col-sm-4">
 						<div class="panel panel-primary">
@@ -13,7 +14,7 @@
 								<h4 class="center-block" style="text-align: center;"><b>PRODUK</b></h4>
 							</div>
 							<div class="panel-body">
-								<h1 style="text-align: center;"><strong>99</strong></h1>
+								<h1 style="text-align: center;"><strong><?php echo $product->count(); ?></strong></h1>
 							</div>
 						</div>
 					</div>
@@ -24,7 +25,7 @@
 								<h4 class="center-block" style="text-align: center;"><b>KATEGORI</b></h4>
 							</div>
 							<div class="panel-body">
-								<h1 style="text-align: center;"><strong>99</strong></h1>
+								<h1 style="text-align: center;"><strong><?php echo $kategori->count(); ?></strong></h1>
 							</div>
 						</div>
 					</div>
@@ -35,11 +36,12 @@
 								<h4 class="center-block" style="text-align: center;"><b>MEMBER</b></h4>
 							</div>
 							<div class="panel-body">
-								<h1 style="text-align: center;"><strong>99</strong></h1>
+								<h1 style="text-align: center;"><strong><?php echo $member->count(); ?></strong></h1>
 							</div>
 						</div>
 					</div>
 				</div>
+				<?php } ?>
 				<!--END Jumlah-->
 				<div class="col-sm-12">
 					<div class="panel panel-default">
@@ -56,7 +58,7 @@
 						</div>
 						<div class="col-sm-12">
 							<h3 style="text-align: center;">SELAMAT DATANG</h3>
-							<h4 style="text-align: center;"><strong>Nama User</strong></h4>
+							<h4 style="text-align: center;"><strong><?php  echo $profile->get_by_mbrid($db->userdata("id"), "nama_lengkap")?$profile->get_by_mbrid($db->userdata("id"), "nama_lengkap"):$db->userdata("email"); ?></strong></h4>
 						</div>
 					</div>
 				</div>
@@ -70,7 +72,7 @@
 	        <div class="modal-content">
 	            <div class="modal-header">
         			<button type="button" class="close" data-dismiss="modal">&times;</button>
-        			<h4 class="modal-title">Update Produk</h4>
+        			<h4 class="modal-title">Ganti Foto</h4>
       			</div>
 	                    
 	            <div class="modal-body" >

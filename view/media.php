@@ -1,3 +1,8 @@
+<?php
+if(empty($db->userdata("id"))){
+	$sys->redirect($sys->base_url()."/Login");
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,11 +34,11 @@
 	      		
 	      		<ul class="nav navbar-nav navbar-right">
 			        <li class="dropdown" style="background-color: #30a5ff">
-        				<a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color:#fff"><i class="glyphicon glyphicon-user"></i> Nama User
+        				<a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color:#fff"><i class="glyphicon glyphicon-user"></i> <?php  echo $profile->get_by_mbrid($db->userdata("id"),"nama_lengkap")?$profile->get_by_mbrid($db->userdata("id"),"nama_lengkap"):$db->userdata("email"); ?>
         				<span class="caret"></span></a>
 				        <ul class="dropdown-menu">
-				          <li><a href="#" data-target="#modal-profile" data-toggle="modal">Profile </a></li>
-				          <li><a href="#">Logout </a></li>
+				          <li><a href="#" data-target="#modal-profile" data-toggle="modal">Edit Profile </a></li>
+				          <li><a href="<?php echo $sys->base_url()."/action/logout"; ?>">Logout </a></li>
 				        </ul>
       				</li>
 	      		</ul>
@@ -44,7 +49,9 @@
 		
 		<ul class="nav menu">
 			<li id='dashboard'><a href="<?php echo $sys->base_url(); ?>/Dashboard"><i class="glyphicon glyphicon-home"></i> Dashboard</a></li>
+			<?php if($db->userdata("level")=="master"){?>
 			<li id="member"><a href="<?php echo $sys->base_url(); ?>/Member"><i class="glyphicon glyphicon-th-list"></i> Member</a></li>
+			<?php } ?>
 			<li id="kategori"><a href="<?php echo $sys->base_url(); ?>/Kategori"><i class="glyphicon glyphicon-menu-hamburger"></i> Kategori</a></li>
 			<li id="produk"><a href="<?php echo $sys->base_url(); ?>/Produk"><i class="glyphicon glyphicon-shopping-cart"></i> Produk</a></li>
 			
