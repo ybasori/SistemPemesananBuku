@@ -31,6 +31,10 @@ class Product extends Database
 		$stmt = $this->query("DELETE FROM ".$this->tableName." WHERE id_produk = '$id'");
 		return $stmt;
 	}
+	public function count(){
+		$stmt = $this->query("SELECT tb_produk.*, tb_kategori.nama_kategori FROM ".$this->tableName.", tb_kategori WHERE tb_produk.id_kategori= tb_kategori.id_kategori ORDER BY id_produk DESC");
+		return $stmt->rowCount();
+	}
 
 }
 

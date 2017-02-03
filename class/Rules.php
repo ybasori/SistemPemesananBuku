@@ -64,7 +64,7 @@ class Rules
 		return "gambar_produk";
 	}
 	public function dir_imgMember(){
-		return $this->dir()."/foto_member";
+		return "foto_member";
 	}
 	public function redirect($data){
 		?>

@@ -28,8 +28,12 @@ class Kategori extends Database
 	}
 	public function count_by_name($data){
 		$stmt=$this->query("SELECT * FROM ".$this->tableName." WHERE nama_kategori='$data'");
-		$zzz=$stmt->fetch();
-		return count($zzz);
+		$zzz=$stmt->rowCount();
+		return $zzz;
+	}
+	public function count(){
+		$stmt=$this->query("SELECT * FROM ".$this->tableName);
+		return $stmt->rowCount();
 	}
 
 }
