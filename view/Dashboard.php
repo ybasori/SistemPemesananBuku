@@ -46,7 +46,7 @@
 				<div class="col-sm-12">
 					<div class="panel panel-default">
 						<div class="panel-body" style="background-image: url(<?php echo $sys->base_url() ?>/background/bg1.jpg); width: 100%">
-							<img src="<?php echo $sys->base_url() ?>/foto_member/default_foto_member.png" alt="member" class="img-responsive img-thumbnail img-circle center-block" style="width: 210px; margin-bottom: -35px">
+							<img src="<?php echo $sys->base_url()."/".$profile->get_by_mbrid($db->userdata("id"), "path_foto") ?>" alt="member" class="img-responsive img-thumbnail img-circle center-block" style="width: 210px; margin-bottom: -35px">
 						</div>
 					</div>
 				</div>
