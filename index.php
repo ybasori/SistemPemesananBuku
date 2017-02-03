@@ -34,8 +34,7 @@
 	$member=new Member;
 	$profile=new Profile;
 
-	$product = new Product;
-	
+	$product = new Product;	
 	$kategori = new Kategori;
 
 	
