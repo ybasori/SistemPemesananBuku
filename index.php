@@ -31,11 +31,14 @@
 	// Member login, Create, Update, Delete
 	// $mbr->login(email, password)
 
+	$member=new Member;
+	$profile=new Profile;
+
 	$product = new Product;
 	
 	$kategori = new Kategori;
 
-	$member=new Member;
+	
 
 // including classes - end
 
